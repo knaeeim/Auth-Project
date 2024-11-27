@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<h1 class="text-center">User Login System</h1>
+    <div style="width: 50%; margin: auto">
+      {% load crispy_forms_tags %}
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <!-- {{ form | crispy}} -->
+        {% if form.non_field_errors %}
+        {% for er in form.non_field_errors %}
+            <p class="bg-danger text-white p-3" >{{er}}</p>
+        {% endfor %}
+        {% endif %}
+        {% for fm in form %} 
+        {{fm.label_tag}} 
+        {{fm}} 
+        {{fm.errors}} 
+        {% endfor %}
+        <br />
+        <div class="d-flex justify-content-center align-items-center flex-column">
+          <button class="btn btn-primary" type="submit">Login</button>
+          <small>Don't have any Account? <a href="{% url 'signup' %}">SignUp</a></small>
+        </div>
+      </form>
+    </div>
+{% endblock %}
